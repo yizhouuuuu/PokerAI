@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package poker;
 
 /**
@@ -14,7 +9,11 @@ public class PokerHand {
     public int[] cardRanks = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     private int[] suites = {0,0,0,0};
     
-    public PokerHand(Card a, Card b, Card c, Card d, Card e){
+    public PokerHand(){
+        
+    }
+    
+    public void setPokerHand(Card a, Card b, Card c, Card d, Card e){
         hand[0] = a;
         hand[1] = b;
         hand[2] = c;
@@ -28,21 +27,32 @@ public class PokerHand {
             suites[hand[i].getSuite()]++;
             cardRanks[hand[i].getRank()]++;
         }
-        cardRanks[0] = cardRanks[13];
+        cardRanks[13] = cardRanks[0];
+    }
+    
+    public void resetCount(){
+        for (int i = 0; i < 5; i++){
+            suites[hand[i].getSuite()] = 0;
+            cardRanks[hand[i].getRank()] = 0;
+        }
     }
     
     
     public String pair(){
         int[] pairs = {-1, -1};
         int n = 0;
-        for (int i = 0; i < 13; i++){
+        for (int i = 1; i < 14; i++){
             if (cardRanks[i] == 2){
                 pairs[n] = i;
                 n++;
             }
         }
+        if (pairs[0] == 0){
+            pairs[0] = 13;
+        }
         if (pairs[1]!=-1){
-            return "2" + pairs[0] + pairs[1];
+            
+            return "2" + pairs[0] + " " + pairs[1];
         } else if(pairs[0]!=-1){
             return "P" + pairs[0];
         } else{
@@ -51,18 +61,26 @@ public class PokerHand {
     }
     
     public String set(){
-        for (int i = 0; i < 13; i++){
+        for (int i = 1; i < 14; i++){
             if (cardRanks[i] == 3){
+                if (i == 0){
+                    return "3" + 13;
+                } else {
                 return "3" + i;
+                }
             }
         }
         return "N";
     }
     
     public String fOAK(){
-        for (int i = 0; i < 13; i++){
+        for (int i = 1; i < 14; i++){
             if (cardRanks[i] == 4){
+                if (i == 0){
+                    return "4" + 13;
+                } else {
                 return "4" + i;
+                }
             }
         }
         return "N";
@@ -113,6 +131,11 @@ public class PokerHand {
                 return hands[i];
             }
         }
-        return "H" + hand[4].getRank();
+        for (int i = 13; i > -1; i--){
+            if (cardRanks[i] != 0){
+                return "H" + i;
+            }
+        }
+        return null;
     }
 }
