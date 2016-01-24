@@ -23,14 +23,16 @@ public class Deck {
         }
     }
     
-    public Card[] Deal() {
+    public Card[] Deal(Card a, Card b) {
         int random;
-        Card[] Dealt = new Card[9];
+        Card[] Dealt = new Card[7];
         int[] Used = new int[52];
-        for (int i = 0; i < 9; i++) {
+        Used[4*a.getRank() + a.getSuite()] = 1;
+        Used[4*b.getRank() + b.getSuite()] = 1;
+        for (int i = 0; i < 7; i++) {
             random = (int) Math.floor(Math.random()*51);
                 if (Used[random] == 1) {
-                    while (Used[(random + 1)] % 52 == 1) {
+                    while (Used[(random + 1) % 52] == 1) {
                         random++;
                     }
                     Dealt[i] = deck[(random + 1) % 52];
