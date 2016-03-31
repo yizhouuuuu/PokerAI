@@ -8,6 +8,7 @@ import java.lang.Math;
 /**
  *
  * @author Max
+ * @author Owen
  */
 public class PokerHand {
     private Card[] hand = new Card[5];
