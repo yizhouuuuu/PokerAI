@@ -1,11 +1,19 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package poker;
 import java.util.*;
+import java.sql.*;
+
 /**
  *
  * @author Max
  */
 public class Evaluate {
     public static int[] evaluateHand(Card a, Card b){
+        int[] hands = {0,0,0,0,0,0,0,0,0};
         int[] wr = new int[3];
         Deck d = new Deck();
         d.makeDeck();
@@ -13,10 +21,10 @@ public class Evaluate {
         Card[] a2 = new Card[7];
         PokerHand ph1 = new PokerHand();
         PokerHand ph2 = new PokerHand();
-        String max1 = "N";
-        String max2 = "N";
+        long max1 = 0;
+        long max2 = 0;
         ArrayList<ArrayList<Integer>> k = test.combine(7,5);
-        for (int i = 0; i < 100000; i++){
+        for (int i = 0; i < 10000; i++){
             a2 = d.Deal(a, b);
             a1[0] = a;
             a1[1] = b;
@@ -32,17 +40,25 @@ public class Evaluate {
                 ph2.countCards();
                 if (Compare.compare(ph1.evaluate(), max1) == 1){
                     max1 = ph1.evaluate();
+
                 }
                 if (Compare.compare(ph2.evaluate(), max2) == 1){
                     max2 = ph2.evaluate();
+
                 }
+                
                 ph1.resetCount();
                 ph2.resetCount();
+
             }
+            hands[(int) (Math.log(max1)/Math.log(14))]++;
+            
             wr[Compare.compare(max1, max2)]++;
-            max1 = "N";
-            max2 = "N";
+            max1 = 0;
+            max2 = 0;
         }
+        System.out.print(Arrays.toString(hands));
         return wr;
     }
+    
 }
