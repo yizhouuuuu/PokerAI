@@ -4,14 +4,13 @@
  * and open the template in the editor.
  */
 package poker;
-import java.util.*;
 
 /**
  *
  * @author Max
  */
 public class Compare {
-    public void Compare(){
+    public Compare(){
         
     }
 

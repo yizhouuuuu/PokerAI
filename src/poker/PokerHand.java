@@ -9,7 +9,6 @@ import java.util.*;
 /**
  *
  * @author Max
- * @author Owen
  */
 public class PokerHand {
 	private Card[] hand = new Card[5];
@@ -27,7 +26,6 @@ public class PokerHand {
 		hand[3] = d;
 		hand[4] = e;
 		Arrays.sort( hand );	//sorting the hand
-		ArrayUtils.reverse( hand );	//reversing the order to be highest to lowest
 	}
 
 	public void countCards(){
@@ -62,9 +60,9 @@ public class PokerHand {
 		}
 
 		if (pairs[1] != -1){	//if we have 2-pair
-			return Math.pow(14, 2) * pairs[0] + Math.pow(14, 1) * pairs[1];
+			return (long) Math.pow(14, 2) * pairs[0] + (long) Math.pow(14, 1) * (long) pairs[1];
 		} else if(pairs[0] != -1){	//if we have only 1 pair
-			return Math.pow(14, 1) * pairs[0];
+			return (long) (Math.pow(14, 1) * pairs[0]);
 		} else {	//no pairs
 			return 0;
 		}
@@ -107,12 +105,12 @@ public class PokerHand {
 		int ace = 0;
 		for (int i = 0; i <= 3; i++){	//checking each suit
 			if (suites[i] == 5){	//if there're 5 of the same suit
-				for (int cardNumber = 0; i < 5; i++) {
-					if ( hand[0] == 0 ) {
+				for (int j = 0; j < 5; j++) {
+					if ( hand[0].getRank() == 0 ) {
 						ace = 13;
 					}
 				}
-				return (long) ( Math.pow(14, 5) * ( hand[0] + ace ) + Math.pow(14, 4) * hand[1] + Math.pow(14,3) * hand[2] + Math.pow(14,2) * hand[3] + Math.pow(14,1) * hand[4] );
+				return (long) ( Math.pow(14, 5) * ( hand[0].getRank() + ace ) + Math.pow(14, 4) * hand[1].getRank() + Math.pow(14,3) * hand[2].getRank() + Math.pow(14,2) * hand[3].getRank() + Math.pow(14,1) * hand[4].getRank() );
 			}
 		}
 		return 0;
@@ -121,7 +119,7 @@ public class PokerHand {
 	//trip weight 14^3, pair weight 14^1; total weight of 14^6
 	public long fullHouse(){
 		if ( (this.pair() != 0) && (this.set() != 0) ) {	//pair + trip = fullhouse
-			return Math.pow(14, 1) * this.pair() + (long) Math.pow(14, 3) * this.set();
+			return (long) (Math.pow(14, 1) * this.pair() + (long) Math.pow(14, 3) * this.set());
 		}
 		return 0;
 	}
@@ -157,13 +155,6 @@ public class PokerHand {
 				return hands[i];
 			}
 		}
-		//for (int i = 13; i > -1; i--){	//high card
-		//	if (cardRanks[i] != 0){
-		//		return i;
-		//	}
-		//}
-		return hand[0];	//high card (since we sorted)
-
-		return 0;
+		return hand[0].getRank();	//high card (since we sorted)
 	}
 }
