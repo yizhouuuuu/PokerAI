@@ -15,7 +15,11 @@ public class Poker {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Card a = new Card(7,1);
+        Card b = new Card(3,0);
+        
+        System.out.print(Arrays.toString(Evaluate.evaluateHand(a, b)));
+        System.out.print("hello");
     }
     
 }
