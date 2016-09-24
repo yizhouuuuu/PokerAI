@@ -1,5 +1,3 @@
-## March 30, 2016
-* Idea for an IDE that allows you to work on code together in real time <br />
-* Changed the encoding of cards from a string to base-13 <br />
-* [BUGFIX] Fixed Deck RNG bug that caused dealing from [0, 50]
-  * Now deals to [0, 51]
+## The initial Poker AI project
+* We started off trying to use someone else's game framework so that we could move straight to the AI, but there were a few inexplicable bugs that we couldn't solve, so we rebooted the project, and added an o to the name, and so Pooker was born!
+* Take a look at http://github.com/OwenQian/Pooker for the up to date version
